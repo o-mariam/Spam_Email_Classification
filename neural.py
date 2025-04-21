@@ -9,7 +9,7 @@ from keras.preprocessing.sequence import pad_sequences
 
 
 dataset = pd.read_csv('spam_or_not_spam.csv')
-
+hgjkjgjk
 
 dataset.email = dataset.email.astype(str)
 
