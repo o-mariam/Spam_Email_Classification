@@ -1,13 +1,15 @@
 #from gensim.models import Word2Vec
+
+
+
 import pandas as pd
 import numpy as np
-from keras.models import Sequential
-from keras.layers import Dense, Flatten
-from keras.layers.embeddings import Embedding
-from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
+import tensorflow as tf
+from tensorflow.python.keras.models import Sequential
+from tensorflow.python.keras.layers import Dense, Flatten, Embedding
 
-
+Tokenizer = tf.keras.preprocessing.text.Tokenizer
+pad_sequences = tf.keras.preprocessing.sequence.pad_sequences
 dataset = pd.read_csv('spam_or_not_spam.csv')
 
 
