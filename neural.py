@@ -1,6 +1,3 @@
-#from gensim.models import Word2Vec
-
-
 
 import pandas as pd
 import numpy as np
@@ -8,34 +5,38 @@ import tensorflow as tf
 from tensorflow.python.keras.models import Sequential
 from tensorflow.python.keras.layers import Dense, Flatten, Embedding
 
+# Import text processing utilities
 Tokenizer = tf.keras.preprocessing.text.Tokenizer
 pad_sequences = tf.keras.preprocessing.sequence.pad_sequences
+
+# Load the dataset
 dataset = pd.read_csv('spam_or_not_spam.csv')
 
 
+
+# Convert email column to string type
 dataset.email = dataset.email.astype(str)
 
+# Extract emails and labels
 emails = dataset["email"].values
 labels = dataset["label"].values
-
 print(len(emails))
 
-#δημιουργία tokenizer
+# Create tokenizer and fit on emails
 tokenizer = Tokenizer()
 tokenizer.fit_on_texts(emails)
 vocab_size = len(tokenizer.word_index) + 1
 
-#κάνουμε integer encode στα email που έχουμε
+# Integer encode the emails
 encoded_emails = tokenizer.texts_to_sequences(emails)
 print(vocab_size)
 
-#κανουμε padding στα emails
+# Pad sequences to ensure uniform lengthh
 max_length = 20
 padded_emails = pad_sequences(encoded_emails, maxlen=max_length, padding='post')
 print(len(padded_emails))
 
-
-#κάνουμε load τo dictionary με τα embeddings
+# Load GloVe word embeddings
 embeddings_index = dict()
 f = open("glove.6B.100d.txt", encoding="utf8")
 for line in f:
@@ -46,9 +47,7 @@ for line in f:
 f.close()
 print('Loaded %s word vectors.' % len(embeddings_index))
 
-
-
-# create a weight matrix for words in training docs
+# Create embedding matrix for words in our vocabulary
 embedding_matrix = np.zeros((vocab_size, 100))
 for word, i in tokenizer.word_index.items():
     embedding_vector = embeddings_index.get(word)
@@ -57,38 +56,79 @@ for word, i in tokenizer.word_index.items():
 
 print(embedding_matrix.shape)
 
-
-#δημιουργία του νευρωνικού model
+# Build the neural network model
 model = Sequential()
 model.add(Embedding(vocab_size, 100, weights=[embedding_matrix], input_length=20, trainable=False))
 model.add(Flatten())
 model.add(Dense(1, activation='sigmoid'))
 
-#κάνομυε compile το model μας
+# Compile the model
 model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['acc'])
 
-# summarize the model
+# Print model summary
 print(model.summary())
 
-
-#κάνουμε split το dataset σε train και test data
+# Split dataset into training and test sets
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(padded_emails, labels, test_size=0.25, random_state=42)
 
-
-#κάνουμε fit το model μας
+# Train the model
 model.fit(X_train, y_train, epochs=10, verbose=0)
 
-# evaluation του model μας
+# Evaluate model performance
 loss, accuracy = model.evaluate(X_test, y_test, verbose=0)
 print('Accuracy: %f' % (accuracy*100))
 
+# Generate classification metrics
 from sklearn.metrics import classification_report, confusion_matrix
-
 y_pred = model.predict_classes(X_test)
 cf_matrix=confusion_matrix(y_test,y_pred)
 print("\nConfusion Matrix\n\n {} \n\n {}".format(cf_matrix,classification_report(y_test,y_pred)))
 
 
+import pickle
+import json
+import numpy as np
+
+# 2. Save tokenizer as JSON (not pickle)
+tokenizer_json = tokenizer.to_json()
+with open("tokenizer.json", "w") as f:
+    f.write(tokenizer_json)
+
+# 3. Save other components
+pipeline_metadata = {
+    "max_length": max_length,  # Your padding length (20)
+    "metrics": {
+        "accuracy": accuracy,
+        "confusion_matrix": confusion_matrix(y_test, y_pred).tolist(),
+        "classification_report": classification_report(y_test, y_pred, output_dict=True)
+    },
+    "config": {
+        "vocab_size": vocab_size,
+        "classes": ["ham", "spam"]  # Update with your labels
+    }
+}
+
+with open("pipeline_metadata.json", "w") as f:
+    json.dump(pipeline_metadata, f)
 
 
+# import pickle
+# from sklearn.metrics import confusion_matrix
+
+# # 1. Save the Keras model (using native method)
+# model.save('spam_classifier.keras')
+
+# # 2. Save the tokenizer (with pickle)
+# with open('tokenizer.pkl', 'wb') as f:
+#     pickle.dump(tokenizer, f)
+
+# # 3. Save the confusion matrix and metrics
+# results = {
+#     'confusion_matrix': cf_matrix,
+#     'classification_report': classification_report(y_test, y_pred, output_dict=True),
+#     'accuracy': accuracy
+# }
+
+# with open('evaluation_results.pkl', 'wb') as f:
+#     pickle.dump(results, f)
