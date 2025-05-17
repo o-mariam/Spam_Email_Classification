@@ -4,12 +4,11 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.python.keras.models import Sequential
 from tensorflow.python.keras.layers import Dense, Flatten, Embedding
+import json
 
-# Import text processing utilities
 Tokenizer = tf.keras.preprocessing.text.Tokenizer
 pad_sequences = tf.keras.preprocessing.sequence.pad_sequences
 
-# Load the dataset
 dataset = pd.read_csv('spam_or_not_spam.csv')
 
 
@@ -86,18 +85,13 @@ cf_matrix=confusion_matrix(y_test,y_pred)
 print("\nConfusion Matrix\n\n {} \n\n {}".format(cf_matrix,classification_report(y_test,y_pred)))
 
 
-import pickle
-import json
-import numpy as np
 
-# 2. Save tokenizer as JSON (not pickle)
 tokenizer_json = tokenizer.to_json()
 with open("tokenizer.json", "w") as f:
     f.write(tokenizer_json)
 
-# 3. Save other components
 pipeline_metadata = {
-    "max_length": max_length,  # Your padding length (20)
+    "max_length": max_length,  
     "metrics": {
         "accuracy": accuracy,
         "confusion_matrix": confusion_matrix(y_test, y_pred).tolist(),
@@ -105,30 +99,11 @@ pipeline_metadata = {
     },
     "config": {
         "vocab_size": vocab_size,
-        "classes": ["ham", "spam"]  # Update with your labels
+        "classes": ["not_spam", "spam"]  
     }
 }
 
 with open("pipeline_metadata.json", "w") as f:
     json.dump(pipeline_metadata, f)
 
-
-# import pickle
-# from sklearn.metrics import confusion_matrix
-
-# # 1. Save the Keras model (using native method)
-# model.save('spam_classifier.keras')
-
-# # 2. Save the tokenizer (with pickle)
-# with open('tokenizer.pkl', 'wb') as f:
-#     pickle.dump(tokenizer, f)
-
-# # 3. Save the confusion matrix and metrics
-# results = {
-#     'confusion_matrix': cf_matrix,
-#     'classification_report': classification_report(y_test, y_pred, output_dict=True),
-#     'accuracy': accuracy
-# }
-
-# with open('evaluation_results.pkl', 'wb') as f:
-#     pickle.dump(results, f)
+model.save('spam_classifier.keras')
