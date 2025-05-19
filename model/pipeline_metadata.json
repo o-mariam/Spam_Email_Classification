@@ -1,0 +1,50 @@
+{
+    "max_length": 20,
+    "metrics": {
+        "accuracy": 0.9120000004768372,
+        "confusion_matrix": [
+            [
+                235,
+                5
+            ],
+            [
+                28,
+                107
+            ]
+        ],
+        "classification_report": {
+            "0": {
+                "precision": 0.8935361216730038,
+                "recall": 0.9791666666666666,
+                "f1-score": 0.9343936381709742,
+                "support": 240.0
+            },
+            "1": {
+                "precision": 0.9553571428571429,
+                "recall": 0.7925925925925926,
+                "f1-score": 0.8663967611336032,
+                "support": 135.0
+            },
+            "accuracy": 0.912,
+            "macro avg": {
+                "precision": 0.9244466322650733,
+                "recall": 0.8858796296296296,
+                "f1-score": 0.9003951996522888,
+                "support": 375.0
+            },
+            "weighted avg": {
+                "precision": 0.9157916892992939,
+                "recall": 0.912,
+                "f1-score": 0.9099147624375207,
+                "support": 375.0
+            }
+        }
+    },
+    "config": {
+        "vocab_size": 22122,
+        "classes": [
+            "ham",
+            "spam"
+        ]
+    }
+}

@@ -9,6 +9,7 @@ import json
 Tokenizer = tf.keras.preprocessing.text.Tokenizer
 pad_sequences = tf.keras.preprocessing.sequence.pad_sequences
 
+# Load the dataset
 dataset = pd.read_csv('spam_or_not_spam.csv')
 
 
