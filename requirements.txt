@@ -5,3 +5,4 @@ numpy==1.23.5
 scikit-learn==1.2.0
 gensim==4.3.0
 FuzzyTM==2.0.9
+setfit==1.1.2

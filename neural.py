@@ -31,14 +31,14 @@ vocab_size = len(tokenizer.word_index) + 1
 encoded_emails = tokenizer.texts_to_sequences(emails)
 print(vocab_size)
 
-# Pad sequences to ensure uniform lengthh
+# Pad sequences to ensure uniform length
 max_length = 20
 padded_emails = pad_sequences(encoded_emails, maxlen=max_length, padding='post')
 print(len(padded_emails))
 
 # Load GloVe word embeddings
 embeddings_index = dict()
-f = open("glove.6B.100d.txt", encoding="utf8")
+f = open("model/glove.6B.100d.txt", encoding="utf8")
 for line in f:
     values = line.split()
     word = values[0]
