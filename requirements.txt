@@ -1,5 +1,7 @@
-flask
-tensorflow==2.12.0
-pandas
-numpy==1.24
-scikit-learn
+flask>=2.2.2
+tensorflow-macos==2.12.0  # Use only this (not tensorflow)
+pandas==1.5.0
+numpy==1.23.5
+scikit-learn==1.2.0
+gensim==4.3.0
+FuzzyTM==2.0.9

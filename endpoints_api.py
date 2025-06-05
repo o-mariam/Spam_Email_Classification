@@ -10,11 +10,11 @@ print("Loading model...")
 model = load_model("/Users/mariadasina/Downloads/Spam_Email_Classification-main/model/spam_classifier.keras",compile=False)
 
 print("Loading tokenizer...")
-with open("tokenizer.json", "r") as f:
+with open("model/tokenizer.json", "r") as f:
     tokenizer = tokenizer_from_json(f.read())
 
 print("Loading pipeline...")
-with open("pipeline_metadata.json", "r") as f:
+with open("model/pipeline_metadata.json", "r") as f:
         metadata = json.load(f)
 
 
