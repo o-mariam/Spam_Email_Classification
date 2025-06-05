@@ -24,12 +24,26 @@ pip install -r requirements.txt
 ```
 ## 📊 Performance Metrics
 
-| Metric       | Not Spam | Spam   |
-|--------------|----------|--------|
-| **Precision** | 0.982    | 0.978  |
-| **Recall**    | 0.991    | 0.985  |
-| **F1-Score**  | 0.986    | 0.981  |
-| **Support**   | 4,821    | 3,752  |
+## Model Performance Metrics
+
+### Classification Report (Spam Detection)
+| Metric       | Class 0 (Not Spam) | Class 1 (Spam) | Macro Avg | Weighted Avg |
+|--------------|-------------------|----------------|-----------|--------------|
+| **Precision** | 0.88              | 0.96           | 0.92      | 0.91         |
+| **Recall**    | 0.98              | 0.77           | 0.88      | 0.91         |
+| **F1-Score**  | 0.93              | 0.86           | 0.89      | 0.90         |
+| **Support**   | 240               | 135            | -         | 375          |
+
+**Accuracy**: 0.91
+
+### Key Takeaways:
+- **Not Spam Detection (Class 0)**:
+  - High recall (0.98) → Effectively catches most legitimate messages
+  - Precision (0.88) → Some false positives (legitimate messages flagged as spam)
+  
+- **Spam Detection (Class 1)**:
+  - High precision (0.96) → Very few false alarms (spam predictions are reliable)
+  - Lower recall (0.77) → Misses ~23% of actual spam
 
 
 ## 🚀 API Endpoints
