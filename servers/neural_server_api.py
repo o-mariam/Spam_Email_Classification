@@ -6,15 +6,15 @@ import json
 import tensorflow as tf
 import tensorflow as tf
 
-print("Loading model...")
-model = load_model("/Users/mariadasina/Downloads/Spam_Email_Classification-main/model/spam_classifier.keras",compile=False)
+print("Loading models...")
+model = load_model("./models/neural/spam_classifier.keras",compile=False)
 
 print("Loading tokenizer...")
-with open("model/tokenizer.json", "r") as f:
+with open("./models/neural/tokenizer.json", "r") as f:
     tokenizer = tokenizer_from_json(f.read())
 
 print("Loading pipeline...")
-with open("model/pipeline_metadata.json", "r") as f:
+with open("./models/neural/pipeline_metadata.json", "r") as f:
         metadata = json.load(f)
 
 
@@ -23,8 +23,6 @@ app=Flask(__name__)
 
 @app.route('/model/info',methods=["GET"])
 def model_info():
-
-
     result={
             "max_length" : metadata["max_length"],
             "accuracy": metadata["metrics"]["accuracy"]
@@ -62,4 +60,4 @@ def model_emails():
 
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run(debug=True,port=5000)

@@ -1,14 +1,12 @@
 from sentence_transformers.losses import CosineSimilarityLoss
 from setfit import SetFitModel, SetFitTrainer
 import pandas as pd
-from collections import defaultdict
 import random
 from datasets import Dataset
-from sklearn.metrics import confusion_matrix, classification_report
 from sklearn.metrics import accuracy_score
 
 
-model_name = "boltuix/bert-emotion"
+model_name = "sentence-transformers/paraphrase-mpnet-base-v2"
 
 # Example dataset (replace with your actual data)
 # data = {
@@ -16,7 +14,7 @@ model_name = "boltuix/bert-emotion"
 #     "status": ["not_spam", "not_spam", "not_spam", "spam", "spam", "spam", "spam", "spam"]
 # }
 # df = pd.DataFrame(data)
-df = pd.read_csv('spam_or_not_spam.csv', index_col=None)
+df = pd.read_csv('./training/dataset/spam_or_not_spam.csv', index_col=None)
 df['status'] = df['label'].apply(lambda x: 'spam' if x == 1 else "not_spam")
 del df['label']
 
@@ -101,4 +99,4 @@ accuracy=accuracy_score(y_true, y_pred)
 print("Accuracy:", accuracy)
 
 
-trainer.model.save_pretrained('./model/'+model_name)
+trainer.model.save_pretrained('./models/'+model_name)
