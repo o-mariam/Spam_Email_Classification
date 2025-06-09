@@ -23,7 +23,7 @@ A full-stack email spam detection system using three different machine learning 
 
 Each model is:
 - Feedforward Neural Network with Pretrained GloVe Embeddings
-- Includes consistent endpoints (`/info`, `/predict`, `/batch_predict`)
+- Includes consistent endpoints (`/info`, `/email`, `/emails`)
 - Compatible with a shared Python client interface
 
 ---
