@@ -1,4 +1,4 @@
-# 📧 Email Spam Classification System
+  # 📧 Email Spam Classification System
 
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3.8%2B-blue" alt="Python">
@@ -12,9 +12,14 @@ A full-stack email spam detection system using three different machine learning 
 
 ### 🔍 Models Implemented
 
-1. **Bidirectional LSTM Neural Network** (TensorFlow/Keras)
-2. **SetFit with E5 Embeddings** (`sentence-transformers/paraphrase-mpnet-base-v2`)
-3. **SetFit with Emotion Embeddings** (`j-hartmann/emotion-english-distilroberta-base`)
+1. **Feedforward Neural Network with GloVe Embeddings**  
+   - A dense neural network using pre-trained GloVe word vectors and a Flatten + Dense architecture.
+
+2. **SetFit with E5 Embeddings**  
+   - Uses `sentence-transformers/paraphrase-mpnet-base-v2` for embedding generation and SetFit for classification.
+
+3. **SetFit with Emotion Embeddings**  
+   - Uses `j-hartmann/emotion-english-distilroberta-base` as the embedding model for SetFit classification.
 
 Each model is:
 - Feedforward Neural Network with Pretrained GloVe Embeddings
