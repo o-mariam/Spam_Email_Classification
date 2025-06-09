@@ -6,47 +6,57 @@
   <img src="https://img.shields.io/badge/Flask-2.3-lightgrey" alt="Flask">
 </div>
 
-## 🌟 Overview
-A production-ready system combining:
-- **Deep Learning Model**: Bidirectional LSTM neural network
-- **REST API**: Flask-based classification service
-- **NLP Pipeline**: Custom text preprocessing
+## 🌐 Project Overview
+
+A full-stack email spam detection system using three different machine learning approaches, each exposed through a REST API. A Python client is included for easy interaction with the models.
+
+### 🔍 Models Implemented
+
+1. **Bidirectional LSTM Neural Network** (TensorFlow/Keras)
+2. **SetFit with E5 Embeddings** (`sentence-transformers/paraphrase-mpnet-base-v2`)
+3. **SetFit with Emotion Embeddings** (`j-hartmann/emotion-english-distilroberta-base`)
+
+Each model is:
+- Feedforward Neural Network with Pretrained GloVe Embeddings
+- Includes consistent endpoints (`/info`, `/predict`, `/batch_predict`)
+- Compatible with a shared Python client interface
+
+---
 
 ## 🛠️ Installation
 
 ```bash
-# Clone repository
+# Clone the repository
 git clone https://github.com/o-mariam/Spam_Email_Classification.git
-cd spam-classifier
+cd Spam_Email_Classification
+```
 
 # Install dependencies
 pip install -r requirements.txt
+
+
+---
+
+## 🚀 API Overview
+
+Each model runs on a dedicated Flask server and exposes the same set of endpoints for consistency.
+
+### 🔗 API Instances
+
+| Model                   | Base URL Example            |
+|--------------------------|------------------------------|
+| Feedforward + GloVe      | `http://localhost:5000/`     |
+| SetFit + E5              | `http://localhost:5001/`     |
+| SetFit + Emotion         | `http://localhost:5002/`     |
+
+---
+
+### 📡 Available Endpoints (per model)
+
+#### 1. `/info` – Model Metadata
+
+```http
+GET /model/info
+POS /model/email
+POS /model/emails
 ```
-## 📊 Performance Metrics
-
-## Model Performance Metrics
-
-### Classification Report (Spam Detection)
-| Metric       | Class 0 (Not Spam) | Class 1 (Spam) | Macro Avg | Weighted Avg |
-|--------------|-------------------|----------------|-----------|--------------|
-| **Precision** | 0.88              | 0.96           | 0.92      | 0.91         |
-| **Recall**    | 0.98              | 0.77           | 0.88      | 0.91         |
-| **F1-Score**  | 0.93              | 0.86           | 0.89      | 0.90         |
-| **Support**   | 240               | 135            | -         | 375          |
-
-**Accuracy**: 0.91
-
-### Key Takeaways:
-- **Not Spam Detection (Class 0)**:
-  - High recall (0.98) → Effectively catches most legitimate messages
-  - Precision (0.88) → Some false positives (legitimate messages flagged as spam)
-  
-- **Spam Detection (Class 1)**:
-  - High precision (0.96) → Very few false alarms (spam predictions are reliable)
-  - Lower recall (0.77) → Misses ~23% of actual spam
-
-
-## 🚀 API Endpoints
-Endpoint	Method	Input	Output
-- /predict	POST	{"email_text":"..."}	{"class": "spam", "confidence": 0.98}
-- /batch_predict	POST	{"emails":["...", "..."]}	List of predictions
