@@ -66,13 +66,14 @@ POS /model/email
 POS /model/emails
 ```
 
-## 📊 Model Performance (SetFit + E5 Embeddings)
+## 📊 Model Performance (Feedforward Neural Network with GloVe Embeddings)
 
 | Metric       | Not Spam (Class 0) | Spam (Class 1) | Macro Avg | Weighted Avg |
 |--------------|--------------------|----------------|-----------|--------------|
-| **Precision** | 0.91               | 0.94           | 0.93      | 0.92         |
-| **Recall**    | 0.96               | 0.87           | 0.91      | 0.92         |
-| **F1-Score**  | 0.93               | 0.90           | 0.91      | 0.91         |
+| **Precision** | 0.94               | 0.93           | 0.93      | 0.94         |
+| **Recall**    | 0.96               | 0.89           | 0.93      | 0.94         |
+| **F1-Score**  | 0.95               | 0.91           | 0.93      | 0.94         |
 | **Support**   | 240                | 135            | —         | 375          |
 
-**Accuracy**: `0.92`
+
+**Accuracy**: `0.93`
