@@ -58,7 +58,6 @@ Each model runs on a dedicated Flask server and exposes the same set of endpoint
 
 ### 📡 Available Endpoints (per model)
 
-#### 1. `/info` – Model Metadata
 
 ```bash
 GET /model/info
