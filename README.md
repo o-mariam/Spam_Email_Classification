@@ -60,7 +60,7 @@ Each model runs on a dedicated Flask server and exposes the same set of endpoint
 
 #### 1. `/info` – Model Metadata
 
-```http
+```bash
 GET /model/info
 POS /model/email
 POS /model/emails
