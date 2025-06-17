@@ -1,9 +1,16 @@
 from shiny import App, ui, render
-import
+import sys
+import os
+
+# Add project root to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from client import neural_client, e5_client, emotion_client
+
+
 MODEL_API_MAP = {
-    "1": "http://localhost:5000/detect",
-    "2": "http://localhost:5001/detect",
-    "3": "http://localhost:5002/detect",
+    "1": neural_client,
+    "2": e5_client,
+    "3": emotion_client,
 }
 app_ui = ui.page_fluid(
     ui.h2("Check if an email is spam or not", style="color:black;"),
@@ -25,10 +32,9 @@ def server(input, output, session):
         # if input.Detector()==0:
         email_text=input.textarea()
         model_id=input.model()
-
-
-
-        return f"Email: {input.textarea()}"
+        client = MODEL_API_MAP.get(model_id)
+        result = client.detect_one(email_text)
+        return f"Email: {result}"
 
 
 app = App(app_ui, server)

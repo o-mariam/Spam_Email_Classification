@@ -1,10 +1,9 @@
 from flask import Flask,request,jsonify
-from keras.models import load_model  
+from keras.models import load_model
+import tensorflow as tf
 from keras.preprocessing.text import tokenizer_from_json
-
 import json
-import tensorflow as tf
-import tensorflow as tf
+
 
 print("Loading models...")
 model = load_model("./models/neural/spam_classifier.keras",compile=False)
