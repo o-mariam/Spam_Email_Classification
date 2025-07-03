@@ -38,6 +38,13 @@ class SpamDetectorClient:
             print(f"Error: {response.status_code} - {response.text}")
             return {}
 
+    def is_alive(self):
+        try:
+            response = requests.get(f"{self.server_url}/alive",timeout=2)
+            return response.status_code == 200
+        except requests.RequestException:
+            return False
+
 
 if __name__ == '__main__':
     pass

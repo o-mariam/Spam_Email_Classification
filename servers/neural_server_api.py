@@ -1,9 +1,10 @@
 from flask import Flask,request,jsonify
-from keras.models import load_model
-import tensorflow as tf
+from keras.models import load_model  
 from keras.preprocessing.text import tokenizer_from_json
-import json
 
+import json
+import tensorflow as tf
+import tensorflow as tf
 
 print("Loading models...")
 model = load_model("./models/neural/spam_classifier.keras",compile=False)
@@ -19,6 +20,10 @@ with open("./models/neural/pipeline_metadata.json", "r") as f:
 
 app=Flask(__name__)
 
+
+@app.route('/alive', methods=['GET'])
+def ping():
+    return jsonify({"status": "ok"}), 200
 
 @app.route('/model/info',methods=["GET"])
 def model_info():
