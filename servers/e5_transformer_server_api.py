@@ -1,10 +1,4 @@
 from flask import Flask,request,jsonify
-from keras.models import load_model  
-from keras.preprocessing.text import tokenizer_from_json
-
-import json
-import tensorflow as tf
-import tensorflow as tf
 from setfit import SetFitModel
 
 
@@ -45,4 +39,4 @@ def model_emails():
 
 
 if __name__=="__main__":
-    app.run(debug=True, port=5002)
+    app.run(host="0.0.0.0",debug=False, port=5002)
